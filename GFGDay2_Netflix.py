@@ -19,8 +19,6 @@ pd.set_option("display.max_columns", None)
 # ==========================
 # Step 2: Load Data
 # ==========================
-
-
 netflix_df = pd.read_csv('netflix_titles.csv')
 
 print("Initial Dataset Info:")
@@ -34,14 +32,20 @@ print(netflix_df.head(3))
 netflix_df['director'] = netflix_df['director'].fillna('Unknown')
 netflix_df['cast'] = netflix_df['cast'].fillna('Unknown')
 
-# Fill 'country' with mode
-netflix_df['country'] = netflix_df['country'].fillna(netflix_df['country'].mode()[0])
+# Fill 'country' with mode (avoid error if column is all NaN)
+if netflix_df['country'].notna().any():
+    netflix_df['country'] = netflix_df['country'].fillna(netflix_df['country'].mode()[0])
+else:
+    netflix_df['country'] = "Unknown"
 
 # Drop rows with missing critical values
 netflix_df.dropna(subset=['rating','date_added'], inplace=True)
 
-# Convert to datetime
-netflix_df['date_added'] = pd.to_datetime(netflix_df['date_added'], format='mixed')
+# Convert to datetime (no 'mixed' in some pandas versions → use errors='coerce')
+netflix_df['date_added'] = pd.to_datetime(netflix_df['date_added'], errors='coerce')
+
+# Drop rows where conversion failed
+netflix_df.dropna(subset=['date_added'], inplace=True)
 
 # Feature Engineering
 netflix_df['year_added'] = netflix_df['date_added'].dt.year
@@ -92,16 +96,24 @@ plt.show()
 movies_df = netflix_df[netflix_df['type']=="Movie"].copy()
 tv_df = netflix_df[netflix_df['type']=="TV Show"].copy()
 
-# Clean duration
-movies_df['duration_min'] = movies_df['duration'].str.replace(" min","").astype(int)
-tv_df['seasons'] = tv_df['duration'].str.replace(" Season","").str.replace("s","").astype(int)
+# Clean duration safely
+movies_df['duration_min'] = (movies_df['duration']
+                             .str.replace(" min","", regex=False)
+                             .str.extract(r'(\d+)')
+                             .astype(float))
+
+tv_df['seasons'] = (tv_df['duration']
+                    .str.replace(" Season","", regex=False)
+                    .str.replace("s","", regex=False)
+                    .str.extract(r'(\d+)')
+                    .astype(float))
 
 # Plot
 fig,ax = plt.subplots(1,2,figsize=(16,6))
-sns.histplot(movies_df['duration_min'], bins=50, kde=True, ax=ax[0], color="skyblue")
+sns.histplot(movies_df['duration_min'].dropna(), bins=50, kde=True, ax=ax[0], color="skyblue")
 ax[0].set_title("Movie Duration Distribution (minutes)")
 
-sns.countplot(x=tv_df['seasons'], ax=ax[1], palette="rocket")
+sns.countplot(x=tv_df['seasons'].dropna(), ax=ax[1], palette="rocket")
 ax[1].set_title("TV Show Season Distribution")
 plt.show()
 
@@ -141,7 +153,11 @@ plt.show()
 # ==========================
 top5_genres = genres['genre'].value_counts().index[:5]
 g_movies = genres[(genres['type']=="Movie") & (genres['genre'].isin(top5_genres))].copy()
-g_movies['duration_min'] = g_movies['duration'].str.replace(" min","").astype(int)
+
+g_movies['duration_min'] = (g_movies['duration']
+                            .str.replace(" min","", regex=False)
+                            .str.extract(r'(\d+)')
+                            .astype(float))
 
 sns.boxplot(x="genre", y="duration_min", data=g_movies, palette="pastel")
 plt.title("Movie Duration by Top Genres")
@@ -151,7 +167,7 @@ plt.show()
 # ==========================
 # Step 7: Word Cloud
 # ==========================
-text = " ".join(netflix_df['description'])
+text = " ".join(netflix_df['description'].dropna())
 wc = WordCloud(width=900, height=450, background_color="black").generate(text)
 
 plt.imshow(wc, interpolation="bilinear")
