@@ -47,7 +47,19 @@ During the first phase, I focused on mastering data exploration, statistical ana
 - **Day 5 - Customer Persona AI**: Applied clustering techniques (K-Means) to segment customers and identify distinct personas
 - **Day 6 - Sales Forecasting**: Time series analysis with linear and polynomial regression for sales trend prediction
 
-**📸 Outputs**: `outputs/` directory contains visualization PNGs for each analysis
+**📸 Visualizations:**
+
+<div align="center">
+
+| Customer Clustering | Elbow Method |
+|:---:|:---:|
+| ![Customer Clusters](outputs/customer_clusters.png) | ![Elbow Method](outputs/elbow_method.png) |
+
+| Sales Trend Analysis | Sales Forecasting |
+|:---:|:---:|
+| ![Sales Trend](outputs/sales_trend_analysis.png) | ![Sales Forecast](outputs/sales_forecast_models.png) |
+
+</div>
 
 ---
 
@@ -62,7 +74,19 @@ The second phase introduced advanced preprocessing techniques and computer visio
 - **Day 10 - Creative AI**: Built text analysis systems with n-gram extraction, Markov chain text generation, and Zipf's law visualization
 - **Day 11 - ML Pipelines**: Created end-to-end ML pipelines comparing Linear, Polynomial, Random Forest, and Gradient Boosting models with cross-validation
 
-**📸 Outputs**: Feature distributions, vision processing results, and pipeline comparison visualizations
+**📸 Visualizations:**
+
+<div align="center">
+
+| Feature Transformations | PCA Analysis |
+|:---:|:---:|
+| ![Scaling Transformations](outputs/scaling_transformations.png) | ![PCA](outputs/pca_analysis.png) |
+
+| Original Features | Feature Correlation |
+|:---:|:---:|
+| ![Original Features](outputs/original_features_distribution.png) | ![Correlation](outputs/feature_correlation.png) |
+
+</div>
 
 ---
 
@@ -76,7 +100,15 @@ Phase three dove into deep learning architectures and complex AI applications:
 - **Day 14 - Text Generation & NLP**: Developed comprehensive NLP systems including tokenization, n-grams, co-occurrence matrices, and language model concepts
 - **Day 15 - SQL Integration**: Created SQLite databases with multi-table schemas, performing complex queries with JOINs, GROUP BY, and aggregations
 
-**📸 Outputs**: Object detection results, neural network training curves, NLP analysis, and database visualizations
+**📸 Visualizations:**
+
+<div align="center">
+
+| Housing Model Performance | Correlation Matrix |
+|:---:|:---:|
+| ![Model R2](outputs/model_r2.png) | ![Correlation](outputs/correlation_matrix.png) |
+
+</div>
 
 ---
 
@@ -92,7 +124,23 @@ The final phase focused on production-ready AI systems and automation:
 - **Day 20 - AI Agent**: Developed multi-agent simulation framework with decision-making, learning, and collaborative task execution
 - **Day 21 - n8n Workflow Automation**: Built workflow orchestration system with node pipelines, performance tracking, and bottleneck analysis
 
-**📸 Outputs**: OCR preprocessed images, RAG similarity matrices, financial charts, agent trajectories, and workflow performance dashboards
+**📸 Visualizations:**
+
+<div align="center">
+
+| Stock Analysis | Risk-Return Analysis |
+|:---:|:---:|
+| ![Stock Analysis](outputs/stock_analysis.png) | ![Risk Return](outputs/risk_return_analysis.png) |
+
+| Portfolio Analysis | Market Insights |
+|:---:|:---:|
+| ![Portfolio](outputs/portfolio_analysis.png) | ![Market Insights](outputs/market_insights.png) |
+
+| Workflow Performance | Workflow Health |
+|:---:|:---:|
+| ![Workflow Performance](outputs/workflow_performance.png) | ![Workflow Health](outputs/workflow_health_analysis.png) |
+
+</div>
 
 ---
 
@@ -160,63 +208,7 @@ GFG21-main/
 
 ---
 
-## 🎯 Key Learnings & Outcomes
 
-**Technical Growth:**
-- ✅ Mastered end-to-end ML pipeline development
-- ✅ Built computer vision systems from fundamentals to advanced object detection
-- ✅ Implemented NLP and RAG systems for text processing
-- ✅ Developed financial analytics with portfolio optimization
-- ✅ Created multi-agent AI systems and workflow automation
 
-**Best Practices:**
-- Comprehensive data preprocessing and feature engineering
-- Model evaluation with cross-validation and multiple metrics
-- Visualization-driven insights for interpretability
-- Modular, reusable code architecture
-- Production-ready system design patterns
 
----
 
-## 🚀 Running the Projects
-
-Each Python file is self-contained and generates visualization outputs:
-
-```bash
-# Run any day's project
-python "Day 1 - 6/GFGDay1_Titanic_EDA.py"
-
-# Outputs will be saved to the outputs/ directory
-```
-
-**Requirements:**
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn opencv-python pillow
-```
-
----
-
-## 📈 Progress Tracking
-
-| Phase | Days | Topics | Status |
-|-------|------|--------|--------|
-| Foundation | 1-6 | Data Analysis, ML Basics | ✅ Complete |
-| Advanced ML | 7-11 | Feature Engineering, Vision, Pipelines | ✅ Complete |
-| Deep Learning | 12-15 | Object Detection, DL, NLP, SQL | ✅ Complete |
-| Production | 16-21 | OCR, RAG, AI Agents, Automation | ✅ Complete |
-
----
-
-## 🎓 Conclusion
-
-This 21-day challenge provided a comprehensive journey through modern AI/ML development, from data analysis fundamentals to production-ready AI systems. Each project built upon previous learnings, creating a cohesive learning path that covers the full spectrum of AI engineering.
-
-**Next Steps:**
-- Deploy models as REST APIs
-- Implement real-time inference systems
-- Scale solutions with distributed computing
-- Explore LLM fine-tuning and prompt engineering
-
----
-
-*Challenge Completed: January 2026*

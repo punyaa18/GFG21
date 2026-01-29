@@ -8,6 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
+from collections import defaultdict
 import json
 import warnings
 warnings.filterwarnings('ignore')
@@ -272,6 +273,7 @@ fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 failure_rates_timeline = []
 nodes_sample = workflow_nodes[::2]  # Sample every 2nd node
 
+max_len = 0
 for node in nodes_sample:
     rates = []
     window = 20
@@ -280,6 +282,12 @@ for node in nodes_sample:
         failure_rate = sum(1 for r in recent if r['status'] == 'failure') / window
         rates.append(failure_rate)
     failure_rates_timeline.append(rates)
+    max_len = max(max_len, len(rates))
+
+# Pad shorter lists to make them equal length
+for i in range(len(failure_rates_timeline)):
+    while len(failure_rates_timeline[i]) < max_len:
+        failure_rates_timeline[i].append(failure_rates_timeline[i][-1] if failure_rates_timeline[i] else 0)
 
 failure_matrix = np.array(failure_rates_timeline)
 im = axes[0, 0].imshow(failure_matrix, cmap='RdYlGn_r', aspect='auto', vmin=0, vmax=0.2)
@@ -435,6 +443,3 @@ print("  - outputs/workflow_performance.png")
 print("  - outputs/workflow_execution_timeline.png")
 print("  - outputs/workflow_health_analysis.png")
 print("  - outputs/workflow_optimization_report.png")
-
-# Import at the top of the file to avoid undefined names
-from collections import defaultdict

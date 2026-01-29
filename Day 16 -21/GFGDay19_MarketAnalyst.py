@@ -277,7 +277,7 @@ print("Portfolio analysis plot saved!")
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
 # 1. Monthly returns heatmap
-monthly_returns = daily_returns.resample('M').sum()
+monthly_returns = daily_returns.resample('ME').sum()
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 im = axes[0, 0].imshow(monthly_returns.T, cmap='RdYlGn', aspect='auto', vmin=-5, vmax=5)

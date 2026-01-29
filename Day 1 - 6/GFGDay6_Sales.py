@@ -22,7 +22,7 @@ os.makedirs('outputs', exist_ok=True)
 # Step 1: Create Synthetic Sales Data
 # ========================================
 np.random.seed(42)
-months = pd.date_range(start='2022-01-01', periods=24, freq='M')
+months = pd.date_range(start='2022-01-01', periods=24, freq='ME')
 base_sales = 50000
 trend = np.linspace(0, 15000, 24)
 seasonality = 10000 * np.sin(np.arange(24) * 2 * np.pi / 12)
@@ -132,7 +132,7 @@ print("Forecast models plot saved!")
 # ========================================
 future_months = 6
 X_future = np.arange(len(sales_df), len(sales_df) + future_months).reshape(-1, 1)
-future_dates = pd.date_range(start=sales_df['Date'].iloc[-1], periods=future_months+1, freq='M')[1:]
+future_dates = pd.date_range(start=sales_df['Date'].iloc[-1], periods=future_months+1, freq='ME')[1:]
 
 y_linear_future = linear_model.predict(X_future)
 X_poly_future = poly_features.transform(X_future)
